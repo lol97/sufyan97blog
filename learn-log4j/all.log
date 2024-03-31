@@ -1,0 +1,6 @@
+2024-03-31 19:37:47.579 [main] WARN  com.sufyan97.learn_log4j.LevelLogCustom - Hai ini warning message
+2024-03-31 19:37:47.582 [main] BAHAYA_TA com.sufyan97.learn_log4j.LevelLogCustom - waduhhh
+2024-03-31 19:37:47.582 [main] BAHAYA_TA com.sufyan97.learn_log4j.LevelLogCustom - lurrrr
+2024-03-31 19:37:47.582 [main] ERROR com.sufyan97.learn_log4j.LevelLogCustom - Errrrrrrr
+2024-03-31 19:37:47.582 [main] SEBAIKNYA_JANGAN_BERCANDA com.sufyan97.learn_log4j.LevelLogCustom - tulung lur
+2024-03-31 19:37:47.582 [main] FATAL com.sufyan97.learn_log4j.LevelLogCustom - fatalll
