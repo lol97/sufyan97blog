@@ -16,7 +16,7 @@ public class Paspor {
 	private String noPaspor;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "NIK", referencedColumnName = "NIK")
+	@JoinColumn(name = "NIK", referencedColumnName = "NIK_16")
 	private WargaNegara wargaNegara;
 	
 	private Date masaBerlaku;

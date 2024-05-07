@@ -54,7 +54,7 @@ public class LearnHibernateApplication {
 		
 		//DENGAN PASPOR
 		WargaNegara pelancong = new WargaNegara();
-		pelancong.setNIK(new BigDecimal("3142112222"));
+		pelancong.setNIK(new BigDecimal("314211222211"));
 		pelancong.setNamaKTP("Jasss Ha");
 		pelancong.setTanggalLahir(new Date(1997, 6, 20));
 		pelancong.setTempatLahir("RiverSide Water");
@@ -64,9 +64,41 @@ public class LearnHibernateApplication {
 		paspor.setMasaBerlaku(new Date(2028, 6, 20));
 		paspor.setStatus("AC");
 		paspor.setWargaNegara(pelancong);
-		
 		pelancong.setPaspor(paspor);
 		wargaNegaraService.Store(pelancong);
+		
+		//DENGAN PASPOR KEMUDIAN HAPUS
+		WargaNegara pindahNegara = new WargaNegara();
+		pindahNegara.setNIK(new BigDecimal("1113142112222"));
+		pindahNegara.setNamaKTP("Aezakmi Aaa");
+		pindahNegara.setTanggalLahir(new Date(1997, 6, 20));
+		pindahNegara.setTempatLahir("Winner Ciry");
+		
+		Paspor pasporPindah = new Paspor();
+		pasporPindah.setNoPaspor("EXS0C111");
+		pasporPindah.setMasaBerlaku(new Date(2028, 6, 20));
+		pasporPindah.setStatus("AC");
+		pasporPindah.setWargaNegara(pindahNegara);
+		pindahNegara.setPaspor(pasporPindah);
+		wargaNegaraService.Store(pindahNegara);
+		
+		wargaNegaraService.destroy(pindahNegara);
+		
+		//DENGAN PASPOR KEMUDIAN HAPUS PASPOR SAJA
+		WargaNegara netizenBudiman = new WargaNegara();
+		netizenBudiman.setNIK(new BigDecimal("2221222222"));
+		netizenBudiman.setNamaKTP("Paling Benar");
+		netizenBudiman.setTanggalLahir(new Date(1997, 6, 20));
+		netizenBudiman.setTempatLahir("Rain Strom");
+		
+		Paspor pasporHilang = new Paspor();
+		pasporHilang.setNoPaspor("HILANF1111");
+		pasporHilang.setMasaBerlaku(new Date(2028, 6, 20));
+		pasporHilang.setStatus("AC");
+		pasporHilang.setWargaNegara(netizenBudiman);
+		netizenBudiman.setPaspor(pasporHilang);
+		wargaNegaraService.Store(netizenBudiman);
+		wargaNegaraService.removePaspor(netizenBudiman);
 		
 	}
 

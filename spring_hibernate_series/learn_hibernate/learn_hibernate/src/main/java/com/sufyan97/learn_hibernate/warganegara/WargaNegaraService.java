@@ -22,4 +22,15 @@ public class WargaNegaraService {
 		
 		wargaNegaraRepository.save(wargaNegara);
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void destroy(WargaNegara wargaNegara) {
+		wargaNegaraRepository.delete(wargaNegara);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void removePaspor(WargaNegara wargaNegara) {
+		pasporRepository.delete(wargaNegara.getPaspor());
+		wargaNegara.setPaspor(null);
+	}
 }

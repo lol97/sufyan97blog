@@ -3,6 +3,7 @@ package com.sufyan97.learn_hibernate.warganegara;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name = "WARGA_NEGARA")
 public class WargaNegara {
 	@Id
-	@Column(name = "NIK", length = 16)
+	@Column(name = "NIK_16", length = 16)
 	private BigDecimal NIK;
 	
 	@Column(name = "NAMA_KTP", length = 150)
@@ -25,7 +26,7 @@ public class WargaNegara {
 	@Column(name = "TANGGAL_LAHIR")
 	private Date tanggalLahir;
 	
-	@OneToOne(mappedBy = "wargaNegara")
+	@OneToOne(mappedBy = "wargaNegara", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Paspor paspor;
 	
 	public WargaNegara() {
