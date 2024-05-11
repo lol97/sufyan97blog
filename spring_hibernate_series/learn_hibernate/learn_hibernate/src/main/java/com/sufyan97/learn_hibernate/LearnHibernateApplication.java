@@ -1,6 +1,8 @@
 package com.sufyan97.learn_hibernate;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Date;
 
 import org.springframework.boot.SpringApplication;
@@ -12,9 +14,11 @@ import com.sufyan97.learn_hibernate.barang.BarangService;
 import com.sufyan97.learn_hibernate.mahasiswa.KartuMahasiswa;
 import com.sufyan97.learn_hibernate.mahasiswa.Mahasiswa;
 import com.sufyan97.learn_hibernate.mahasiswa.MahasiswaService;
+import com.sufyan97.learn_hibernate.nasabah.KartuDebit;
+import com.sufyan97.learn_hibernate.nasabah.Nasabah;
+import com.sufyan97.learn_hibernate.nasabah.NasabahService;
 import com.sufyan97.learn_hibernate.warganegara.Paspor;
 import com.sufyan97.learn_hibernate.warganegara.WargaNegara;
-import com.sufyan97.learn_hibernate.warganegara.WargaNegaraRepository;
 import com.sufyan97.learn_hibernate.warganegara.WargaNegaraService;
 
 @SpringBootApplication
@@ -31,6 +35,9 @@ public class LearnHibernateApplication {
 		
 		MahasiswaService mahasiswaService = applicationContext.getBean(MahasiswaService.class);
 		runMahasiswa(mahasiswaService);
+		
+		NasabahService nasabahService = applicationContext.getBean(NasabahService.class);
+		runNasabah(nasabahService);
 	}
 	
 	public static void runBarang(BarangService barangService) throws Exception {
@@ -166,6 +173,24 @@ public class LearnHibernateApplication {
 		rosi.setKartuMahasiswa(kartuRosi);
 		mahasiswaService.Store(rosi);
 		mahasiswaService.removeKartuMahasiswa(rosi);
+	}
+	
+	public static void runNasabah(NasabahService nasabahService) {
+		Nasabah nasabah = new Nasabah();
+		nasabah.setNoRekening(new BigDecimal(320976511));
+		nasabah.setNama("Rodrigues ALparam");
+		nasabah.setTempatLahir("Mexico City");
+		nasabah.setTanggalLahir(new Date(1980, 4, 24));
+		nasabah.setJenisNasabah("CORE");
+		
+		KartuDebit kartuDebit = new KartuDebit();
+		kartuDebit.setNoKartu(new BigDecimal("11112221987"));
+		kartuDebit.setCCV(234);
+		kartuDebit.setJenis("VISA");
+		kartuDebit.setMasaBerlaku(new Date(2026, 6, 6));
+		kartuDebit.setNasabah(nasabah);
+		nasabah.setKartuDebit(kartuDebit);
+		nasabahService.store(nasabah);
 	}
 
 }
