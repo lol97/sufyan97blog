@@ -6,6 +6,15 @@ import java.util.Objects;
 public class Customer {
 	private BigDecimal customerId;
 	private Account account;
+	private final String company = "SUFYAN97";
+	
+	//start @RequiredArgsConstructor
+	public Customer(Account account) {
+		if (account == null)
+			throw new NullPointerException("account is marked non-null but is null");
+		this.account = account;
+	}
+	//end @RequiredArgsConstructor
 	
 	//start setter
 	public void setCustomerId(BigDecimal customerId) {
@@ -13,11 +22,18 @@ public class Customer {
 	}
 
 	public void setAccount(Account account) {
+		if (account == null)
+			throw new NullPointerException("account is marked non-null but is null");
 		this.account = account;
 	}
 	//end setter
+	
+	//start hash and equal
+	@Override
+	public int hashCode() {
+		return Objects.hash(account, company, customerId);
+	}
 
-	//start equal and hashcode
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -27,26 +43,19 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		return Objects.equals(account, other.account) && Objects.equals(customerId, other.customerId);
+		return Objects.equals(account, other.account) && Objects.equals(company, other.company)
+				&& Objects.equals(customerId, other.customerId);
 	}
+	//end hash and equal
 
-	protected boolean canEqual(Object other) {
-		return other instanceof com.sufyan97.learn_lombok.withlombok.Customer;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(account, customerId);
-	}
-	//end equal and hashcode
-	
-	//s toString
+	//start to string
 	public String toString() {
-		return "Customer(customerId=" + getCustomerId() + ", account=" + getAccount() + ")";
+		return "Customer(customerId=" + getCustomerId() + ", account=" + getAccount() + ", company=" + getCompany()
+				+ ")";
 	}
-	//e toString
-	
-	//s getter
+	//end to string
+
+	//start getter
 	public BigDecimal getCustomerId() {
 		return this.customerId;
 	}
@@ -54,5 +63,10 @@ public class Customer {
 	public Account getAccount() {
 		return this.account;
 	}
-	//e getter
+
+	public String getCompany() {
+		Objects.requireNonNull(this);
+		return "SUFYAN97";
+	}
+	//end getter
 }
