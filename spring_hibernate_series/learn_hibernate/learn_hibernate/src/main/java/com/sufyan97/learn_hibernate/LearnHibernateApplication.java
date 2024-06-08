@@ -20,6 +20,9 @@ import com.sufyan97.learn_hibernate.nasabah.NasabahService;
 import com.sufyan97.learn_hibernate.warganegara.Paspor;
 import com.sufyan97.learn_hibernate.warganegara.WargaNegara;
 import com.sufyan97.learn_hibernate.warganegara.WargaNegaraService;
+import com.sufyan97.learn_hibernate.wilayah.Kabupaten;
+import com.sufyan97.learn_hibernate.wilayah.Provinsi;
+import com.sufyan97.learn_hibernate.wilayah.WilayahService;
 
 @SpringBootApplication
 public class LearnHibernateApplication {
@@ -38,6 +41,9 @@ public class LearnHibernateApplication {
 		
 		NasabahService nasabahService = applicationContext.getBean(NasabahService.class);
 		runNasabah(nasabahService);
+		
+		WilayahService wilayahService = applicationContext.getBean(WilayahService.class);
+		runProvinsi(wilayahService);
 	}
 	
 	public static void runBarang(BarangService barangService) throws Exception {
@@ -192,5 +198,24 @@ public class LearnHibernateApplication {
 		nasabah.setKartuDebit(kartuDebit);
 		nasabahService.store(nasabah);
 	}
-
+	
+	public static void runProvinsi(WilayahService wilayahService) {
+		Provinsi jabar = new Provinsi();
+		jabar.setCodeProvinsi("32");
+		jabar.setNama("Jawa Barat");
+		
+		Kabupaten cirebon = new Kabupaten();
+		cirebon.setCodeKabupaten("3209");
+		cirebon.setNama("Kabupaten Cirebon");
+		cirebon.setProvinsi(jabar);
+		jabar.getKabupatens().add(cirebon);
+		
+		Kabupaten bogor = new Kabupaten();
+		bogor.setCodeKabupaten("3201");
+		bogor.setNama("Kabupaten Bogor");
+		bogor.setProvinsi(jabar);
+		jabar.getKabupatens().add(bogor);
+		
+		wilayahService.saveProvinsi(jabar);
+	}
 }
