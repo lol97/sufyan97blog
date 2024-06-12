@@ -13,8 +13,25 @@ public class WilayahService {
 	@Autowired
 	private ProvinsiRepository provinsiRepository;
 	
+	@Autowired
+	private KecamatanRepository kecamatanRepository;
+	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveProvinsi(Provinsi provinsi) {
 		provinsiRepository.save(provinsi);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void saveKabupaten(Kabupaten kabupaten) {
+		kabupatenRepository.save(kabupaten);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void saveKecamatan(Kecamatan kecamatan) {
+		kecamatanRepository.save(kecamatan);
+	}
+	
+	public Kabupaten getKabupaten(String codeKabupaten) {
+		return kabupatenRepository.getById(codeKabupaten);
 	}
 }

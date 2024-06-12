@@ -218,4 +218,8 @@ public class LearnHibernateApplication {
 		
 		wilayahService.saveProvinsi(jabar);
 	}
+	
+	public static void runKecamatan(WilayahService wilayahService) {
+		
+	}
 }
