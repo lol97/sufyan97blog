@@ -11,10 +11,18 @@ public class WilayahService {
 	private KabupatenRepository kabupatenRepository;
 	
 	@Autowired
+	private TipeWilayahRepository tipeWilayahRepository;
+	
+	@Autowired
 	private ProvinsiRepository provinsiRepository;
 	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveProvinsi(Provinsi provinsi) {
 		provinsiRepository.save(provinsi);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void saveTipe(TipeWilayah tipeWilayah) {
+		tipeWilayahRepository.save(tipeWilayah);
 	}
 }
