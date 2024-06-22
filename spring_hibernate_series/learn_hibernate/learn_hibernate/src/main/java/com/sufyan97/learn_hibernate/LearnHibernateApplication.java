@@ -11,6 +11,10 @@ import org.springframework.context.ApplicationContext;
 
 import com.sufyan97.learn_hibernate.barang.Barang;
 import com.sufyan97.learn_hibernate.barang.BarangService;
+import com.sufyan97.learn_hibernate.book.Author;
+import com.sufyan97.learn_hibernate.book.Book;
+import com.sufyan97.learn_hibernate.book.BookService;
+import com.sufyan97.learn_hibernate.book.LibraryService;
 import com.sufyan97.learn_hibernate.mahasiswa.KartuMahasiswa;
 import com.sufyan97.learn_hibernate.mahasiswa.Mahasiswa;
 import com.sufyan97.learn_hibernate.mahasiswa.MahasiswaService;
@@ -44,6 +48,11 @@ public class LearnHibernateApplication {
 		
 		WilayahService wilayahService = applicationContext.getBean(WilayahService.class);
 		runProvinsi(wilayahService);
+		
+		BookService bookService = applicationContext.getBean(BookService.class);
+		runBook(bookService);
+		LibraryService libraryService = applicationContext.getBean(LibraryService.class);
+		runLibrary(libraryService);
 	}
 	
 	public static void runBarang(BarangService barangService) throws Exception {
@@ -217,5 +226,27 @@ public class LearnHibernateApplication {
 		jabar.getKabupatens().add(bogor);
 		
 		wilayahService.saveProvinsi(jabar);
+	}
+	
+	public static void runBook(BookService bookService) {
+		Author author = new Author();
+		author.setName("J. K. Rowling");
+		author.setCountry("United Kingdom");
+		
+		Book harryPoter = new Book();
+		harryPoter.setId(14l);
+		harryPoter.setAuthor(author);
+		harryPoter.setISBN("978-602-03-2480-7");
+		harryPoter.setTitle("Harry Potter and the philosopher & stone");
+		harryPoter.setCategory("Fiction");
+		harryPoter.setTotalPage(450);
+		bookService.store(harryPoter);
+		
+		bookService.get(harryPoter.getId());
+	}
+	
+	public static void runLibrary(LibraryService libraryService) {
+		Book book = libraryService.getBook(14l);
+		book.getAuthor();
 	}
 }
