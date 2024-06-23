@@ -227,6 +227,11 @@ public class LearnHibernateApplication {
 		
 		wilayahService.saveProvinsi(jabar);
 	}
+
+	public static void runKecamatan(WilayahService wilayahService) {
+		
+	}
+	
 	
 	public static void runBook(BookService bookService) {
 		Author author = new Author();
