@@ -9,7 +9,7 @@ public class LibraryService {
 	private BookRepository bookRepository;
 	
 	public Book getBook(Long bookId) {
-		return bookRepository.getReferenceById(bookId);
+		return bookRepository.findById(bookId).orElse(null);
 	}
 	
 	public Book getBookFetch(Long bookId) {
