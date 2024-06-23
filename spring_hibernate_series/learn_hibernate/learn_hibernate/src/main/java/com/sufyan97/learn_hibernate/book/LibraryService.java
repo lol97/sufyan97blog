@@ -11,4 +11,8 @@ public class LibraryService {
 	public Book getBook(Long bookId) {
 		return bookRepository.getReferenceById(bookId);
 	}
+	
+	public Book getBookFetch(Long bookId) {
+		return bookRepository.getBookFetch(bookId);
+	}
 }

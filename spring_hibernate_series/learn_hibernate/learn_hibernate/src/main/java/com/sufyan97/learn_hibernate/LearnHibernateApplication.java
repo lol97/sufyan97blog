@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Date;
 
+import org.hibernate.LazyInitializationException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -251,7 +252,14 @@ public class LearnHibernateApplication {
 	}
 	
 	public static void runLibrary(LibraryService libraryService) {
-		Book book = libraryService.getBook(14l);
-		book.getAuthor();
+		try {
+			Book book = libraryService.getBook(1L);
+			book.getAuthor();
+		} catch (LazyInitializationException lazyInitializationException) {
+			System.out.println("whoops " + lazyInitializationException.getMessage());
+		}
+		
+		Book book = libraryService.getBookFetch(1L);
+		System.out.println(book.getAuthor());
 	}
 }
