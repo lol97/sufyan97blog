@@ -16,6 +16,10 @@ import com.sufyan97.learn_hibernate.book.Author;
 import com.sufyan97.learn_hibernate.book.Book;
 import com.sufyan97.learn_hibernate.book.BookService;
 import com.sufyan97.learn_hibernate.book.LibraryService;
+import com.sufyan97.learn_hibernate.buku.Buku;
+import com.sufyan97.learn_hibernate.buku.BukuService;
+import com.sufyan97.learn_hibernate.buku.Penulis;
+import com.sufyan97.learn_hibernate.buku.PerpustakaanService;
 import com.sufyan97.learn_hibernate.mahasiswa.KartuMahasiswa;
 import com.sufyan97.learn_hibernate.mahasiswa.Mahasiswa;
 import com.sufyan97.learn_hibernate.mahasiswa.MahasiswaService;
@@ -35,6 +39,7 @@ public class LearnHibernateApplication {
 	
 	public static void main(String[] args) throws Exception {
 		ApplicationContext applicationContext =	SpringApplication.run(LearnHibernateApplication.class, args);
+		/*
 		BarangService barangService = applicationContext.getBean(BarangService.class);
 		runBarang(barangService);
 		
@@ -49,11 +54,21 @@ public class LearnHibernateApplication {
 		
 		WilayahService wilayahService = applicationContext.getBean(WilayahService.class);
 		runProvinsi(wilayahService);
+		*/
 		
+		System.out.println("========= START EAGER ==========");
 		BookService bookService = applicationContext.getBean(BookService.class);
 		runBook(bookService);
 		LibraryService libraryService = applicationContext.getBean(LibraryService.class);
 		runLibrary(libraryService);
+		System.out.println("========= END EAGER ==========");
+		
+		System.out.println("========= START LAZY ==========");
+		BukuService bukuService = applicationContext.getBean(BukuService.class);
+		runBuku(bukuService);
+		PerpustakaanService perpustakaanService = applicationContext.getBean(PerpustakaanService.class);
+		runPerpustakaan(perpustakaanService);
+		System.out.println("========= END LAZY ==========");
 	}
 	
 	public static void runBarang(BarangService barangService) throws Exception {
@@ -240,7 +255,6 @@ public class LearnHibernateApplication {
 		author.setCountry("United Kingdom");
 		
 		Book harryPoter = new Book();
-		harryPoter.setId(14l);
 		harryPoter.setAuthor(author);
 		harryPoter.setISBN("978-602-03-2480-7");
 		harryPoter.setTitle("Harry Potter and the philosopher & stone");
@@ -254,12 +268,40 @@ public class LearnHibernateApplication {
 	public static void runLibrary(LibraryService libraryService) {
 		try {
 			Book book = libraryService.getBook(1L);
-			book.getAuthor();
+			book.getAuthor().getName();
 		} catch (LazyInitializationException lazyInitializationException) {
 			System.out.println("whoops " + lazyInitializationException.getMessage());
 		}
 		
 		Book book = libraryService.getBookFetch(1L);
-		System.out.println(book.getAuthor());
+		System.out.println(book.getAuthor().getName());
+	}
+	
+	public static void runBuku(BukuService bukuService) {
+		Penulis penulis = new Penulis();
+		penulis.setName("J. K. Rowling");
+		penulis.setCountry("United Kingdom");
+		
+		Buku harryPoter = new Buku();
+		harryPoter.setPenulis(penulis);
+		harryPoter.setISBN("978-602-03-2480-7");
+		harryPoter.setTitle("Harry Potter and the philosopher & stone");
+		harryPoter.setCategory("Fiction");
+		harryPoter.setTotalPage(450);
+		bukuService.store(harryPoter);
+		
+		bukuService.get(harryPoter.getId());
+	}
+	
+	public static void runPerpustakaan(PerpustakaanService perpustakaanService) {
+		try {
+			Buku buku = perpustakaanService.getBook(1L);
+			buku.getPenulis().getName();
+		} catch (LazyInitializationException lazyInitializationException) {
+			System.out.println("whoops " + lazyInitializationException.getMessage());
+		}
+		
+		Buku buku = perpustakaanService.getBukuFetch(1L);
+		System.out.println(buku.getPenulis().getName());
 	}
 }
