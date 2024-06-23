@@ -56,19 +56,19 @@ public class LearnHibernateApplication {
 		runProvinsi(wilayahService);
 		*/
 		
-		System.out.println("========= START EAGER ==========");
+		System.out.println("========= START LAZY ==========");
 		BookService bookService = applicationContext.getBean(BookService.class);
 		runBook(bookService);
 		LibraryService libraryService = applicationContext.getBean(LibraryService.class);
 		runLibrary(libraryService);
-		System.out.println("========= END EAGER ==========");
+		System.out.println("========= END LAZY ==========");
 		
-		System.out.println("========= START LAZY ==========");
+		System.out.println("========= START EAGER ==========");
 		BukuService bukuService = applicationContext.getBean(BukuService.class);
 		runBuku(bukuService);
 		PerpustakaanService perpustakaanService = applicationContext.getBean(PerpustakaanService.class);
 		runPerpustakaan(perpustakaanService);
-		System.out.println("========= END LAZY ==========");
+		System.out.println("========= END EAGER ==========");
 	}
 	
 	public static void runBarang(BarangService barangService) throws Exception {
