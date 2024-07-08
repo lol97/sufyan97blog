@@ -25,4 +25,8 @@ public class Siswa {
 	
 	@OneToMany(mappedBy = "siswa", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MapelSiswa> mapelSiswaSet = new HashSet<MapelSiswa>();
+	
+	public Siswa(String nama) {
+		this.nama = nama;
+	}
 }

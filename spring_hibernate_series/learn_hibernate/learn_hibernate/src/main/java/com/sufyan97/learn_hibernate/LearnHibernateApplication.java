@@ -26,6 +26,10 @@ import com.sufyan97.learn_hibernate.mahasiswa.MahasiswaService;
 import com.sufyan97.learn_hibernate.nasabah.KartuDebit;
 import com.sufyan97.learn_hibernate.nasabah.Nasabah;
 import com.sufyan97.learn_hibernate.nasabah.NasabahService;
+import com.sufyan97.learn_hibernate.sekolah.Mapel;
+import com.sufyan97.learn_hibernate.sekolah.MapelSiswa;
+import com.sufyan97.learn_hibernate.sekolah.SekolahService;
+import com.sufyan97.learn_hibernate.sekolah.Siswa;
 import com.sufyan97.learn_hibernate.warganegara.Paspor;
 import com.sufyan97.learn_hibernate.warganegara.WargaNegara;
 import com.sufyan97.learn_hibernate.warganegara.WargaNegaraService;
@@ -69,6 +73,11 @@ public class LearnHibernateApplication {
 		PerpustakaanService perpustakaanService = applicationContext.getBean(PerpustakaanService.class);
 		runPerpustakaan(perpustakaanService);
 		System.out.println("========= END EAGER ==========");
+		
+		System.out.println("===MANY TO MANY====");
+		SekolahService sekolahService = applicationContext.getBean(SekolahService.class);
+		runSekolah(sekolahService);
+		System.out.println("===MANY TO MANY====");
 	}
 	
 	public static void runBarang(BarangService barangService) throws Exception {
@@ -303,5 +312,20 @@ public class LearnHibernateApplication {
 		
 		Buku buku = perpustakaanService.getBukuFetch(1L);
 		System.out.println(buku.getPenulis().getName());
+	}
+	
+	public static void runSekolah(SekolahService sekolahService) {
+		Mapel mapel = new Mapel();
+		mapel.setNama("Biologi");
+		Siswa siswa = new Siswa("Rudi");
+		MapelSiswa kelas = new MapelSiswa();
+		kelas.setMapel(mapel);
+		kelas.setSiswa(siswa);
+		kelas.setNilai(90);
+		
+		sekolahService.store(kelas);
+		
+		Siswa siswaBaru = new Siswa("John");
+		sekolahService.addSiswa(mapel, siswaBaru, 65);
 	}
 }
