@@ -12,6 +12,9 @@ import org.springframework.context.ApplicationContext;
 
 import com.sufyan97.learn_hibernate.barang.Barang;
 import com.sufyan97.learn_hibernate.barang.BarangService;
+import com.sufyan97.learn_hibernate.blog.Artikel;
+import com.sufyan97.learn_hibernate.blog.BlogService;
+import com.sufyan97.learn_hibernate.blog.PenulisBlog;
 import com.sufyan97.learn_hibernate.book.Author;
 import com.sufyan97.learn_hibernate.book.Book;
 import com.sufyan97.learn_hibernate.book.BookService;
@@ -59,7 +62,7 @@ public class LearnHibernateApplication {
 		WilayahService wilayahService = applicationContext.getBean(WilayahService.class);
 		runProvinsi(wilayahService);
 		*/
-		
+		/*
 		System.out.println("========= START LAZY ==========");
 		BookService bookService = applicationContext.getBean(BookService.class);
 		runBook(bookService);
@@ -74,9 +77,15 @@ public class LearnHibernateApplication {
 		runPerpustakaan(perpustakaanService);
 		System.out.println("========= END EAGER ==========");
 		
-		System.out.println("===MANY TO MANY====");
+		System.out.println("===MANY TO MANY WITH PIVOT====");
 		SekolahService sekolahService = applicationContext.getBean(SekolahService.class);
 		runSekolah(sekolahService);
+		System.out.println("===MANY TO MANY WITH PIVOT====");
+		*/
+		
+		System.out.println("===MANY TO MANY====");
+		BlogService blogService = applicationContext.getBean(BlogService.class);
+		runBlog(blogService);
 		System.out.println("===MANY TO MANY====");
 	}
 	
@@ -327,5 +336,22 @@ public class LearnHibernateApplication {
 		
 		Siswa siswaBaru = new Siswa("John");
 		sekolahService.addSiswa(mapel, siswaBaru, 65);
+	}
+	
+	public static void runBlog(BlogService blogService) {
+		//add Penulis Blog
+		PenulisBlog radit = new PenulisBlog();
+		radit.setNama("Raditya Dika");
+		radit = blogService.storePenulisBlog(radit);
+		
+		//add Artikel
+		Artikel artikel = new Artikel();
+		artikel.setJudul("Kambing Jantan dalam Blog");
+		artikel.setKategori("Komedi");
+		artikel = blogService.storeArtikel(artikel);
+		
+		//connect
+		artikel = blogService.addPenulisBlogToArtikel(artikel.getId(), radit.getId());
+		
 	}
 }
